@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mobile App Assignment 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.mobile.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="cordova.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="homePage">
+      <div data-role="header" class="expenseHomebar">
+        <h2>ExpenseKeeper</h2>
+        <a href="#optionLists" data-icon="gear" data-rel="popup" class="ui-btn-right">Settings</a>
+      </div>
+      <!-- Menu Options -->
+      <div data-role="popup" id="optionLists">
+        <ul data-role="listview">
+          <li>
+            <a href="#expenseForm" data-role="button" data-transition="fade">Add Expense</a>
+          </li>
+          <li>
+            <a href="#localExpenseShow" data-role="button" data-transition="flip">View Local Expenses</a>
+          </li>
+          <li>
+            <a href="#" id="uploadToCloud" data-role="button">Upload to Cloud</a>
+          </li>
+          <li>
+            <a href="#cloudExpenseShow" data-role="button" data-transition="flow">View Cloud Expenses</a>
+          </li>
+          <li>
+            <a href="#" data-role="button" id="deleteLocalButton">Delete Local Data</a>
+          </li>
+          <li>
+            <a href="#" data-role="button" id="deleteAllCloudButton">Delete Cloud Data</a>
+          </li>
+        </ul>
+      </div>
+      <div data-role="content">
+        <div class="ui-grid-b">
+          <!-- Groceries -->
+          <div class="ui-block expenseBlock">
+            <div class="section">
+              <div id="groceriesExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-shop ui-btn-icon-right expenseButton">Groceries</a>
+            </div>
+          </div>
+          <!-- Utilities -->
+          <div class="ui-block expenseBlock ">
+            <div class="section">
+              <div id="utilitiesExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-alert ui-btn-icon-right expenseButton">Utilities</a>
+            </div>
+          </div>
+          <!-- Education -->
+          <div class="ui-block expenseBlock">
+            <div class="section">
+              <div id="educationExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-edit ui-btn-icon-right expenseButton">Education</a>
+            </div>
+          </div>
+          <!-- Transportation -->
+          <div class="ui-block expenseBlock">
+            <div class="section">
+              <div id="transportExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-location ui-btn-icon-right expenseButton">Transportation</a>
+            </div>
+          </div>
+          <!-- Entertainment -->
+          <div class="ui-block expenseBlock">
+            <div class="section">
+              <div id="entertainmentExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-star ui-btn-icon-right expenseButton">Entertainment</a>
+            </div>
+          </div>
+          <!-- Uncategorised -->
+          <div class="ui-block expenseBlock">
+            <div class="section">
+              <div id="uncategorisedExpenses" class="categoryExpenses"></div>
+              <a href="#" class="ui-btn ui-icon-tag ui-btn-icon-right expenseButton">Uncategorised</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h4>COIT20269 &copy; 2023</h4>
+      </div>
+    </div>
+
+    <!-- Expense Form -->
+    <div data-role="page" id="expenseForm">
+      <div data-role="header" class="expenseHomebar">
+        <h1>Expense Entry</h1>
+        <a href="#homePage" data-icon="home" data-iconpos="notext">Home</a>
+      </div>
+      <div data-role="content">
+        <form id="expenseDetailsForm">
+          <label for="expenseType">Choose Expense:</label>
+          <select name="expenseType" id="expenseType" required>
+            <option value="uncategorised">Uncategorised</option>
+            <option value="groceries">Groceries</option>
+            <option value="utilities">Utilities</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="transport">Transport</option>
+            <option value="education">Education</option>
+          </select>
+          <label for="cost">Amount ($):</label>
+          <input type="number" name="expense_cost" id="cost" required>
+          <label for="expenseDate">Date:</label>
+          <input type="date" name="expense_date" id="expenseDate" value="">
+          <label>Upload Reciept:</label>
+          <a href="#" id="clickPicture" class="ui-shadow ui-btn ui-corner-all ui-btn-inline ui-icon-camera ui-btn-icon-notext ui-btn-b ui-mini">Open Camera</a>
+          <div id="clickedReciept"></div>
+          <label for="remarks">Remarks (Any):</label>
+          <textarea name="expense_remarks" id="remarks" rows="5" cols="3"></textarea>
+          <button type="submit">Submit</button>
+          <button type="button" id="clear-btn">Clear</button>
+        </form>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h4>copyright @ PY / BM 2023</h4>
+      </div>
+    </div>
+
+    <!-- Show local expenses page -->
+    <div data-role="page" id="localExpenseShow">
+      <div data-role="header" class="expenseHomebar">
+        <h1>Local Expenses</h1>
+        <a href="#homePage" data-icon="home" data-iconpos="notext">Home</a>
+      </div>
+      <div data-role="content">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter">
+          <option value="all">All</option>
+          <option value="uncategorised">Uncategorised</option>
+          <option value="groceries">Groceries</option>
+          <option value="utilities">Utilities</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="transport">Transport</option>
+          <option value="education">Education</option>
+        </select>
+        <ul data-role="listview" data-inset="true" id="expenseList" class="card-list"></ul>
+        <div style="padding-top: 10px;">
+          <p style="font-weight: bold; font-size: 16px;">Total Expenses: <span id="totalExpenses" style="color: #ff5733; font-size: 18px;">$0</span>
+          </p>
+        </div>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h4>Copyright @ PY / BM 2023</h4>
+      </div>
+    </div>
+    <!-- Show cloud expenses -->
+    <div data-role="page" id="cloudExpenseShow">
+      <div data-role="header" class="expenseHomebar">
+        <h1>Cloud Expenses</h1>
+        <a href="#homePage" data-icon="home" data-iconpos="notext">Home</a>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" data-inset="true" id="cloudExpenseList" class="card-list"></ul>
+        <p>Total Cloud Expenses: <span id="totalCloudExpenses" style="color: #ff5733; font-size: 18px;">$0</span>
+        </p>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h4>copyright @ PY / BM 2023</h4>
+      </div>
+    </div>
+  </body>
+</html>

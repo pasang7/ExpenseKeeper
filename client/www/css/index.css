@@ -1,0 +1,66 @@
+.expenseHomebar {
+  background-color: #3078cd !important;
+  text-shadow: none !important;
+  color: #fff !important;
+}
+ /* Define a three-column grid */
+ .ui-grid-b {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Define a one-column grid for small screens */
+@media screen and (max-width: 600px) {
+  .ui-grid-b {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.expenseBlock{
+  padding: 15px;
+  border: 1px solid #eaeaea;
+  text-align: center;
+}
+.green{
+  background: #58d24e52;
+}
+.expenseTitle {
+  font-size: 2em;
+  color: #e75115;
+}
+
+.expenseBlock.ui-icon {
+  font-size: 24px;
+  color: #007aff;
+}
+.myIcon {
+  border: none !important;
+  margin: auto;
+}
+.expenseLink{
+  text-decoration: none !important;
+}
+.card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card-list li {
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.card-list li h2 {
+  margin: 0;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.card-list li p {
+  margin: 8px 0;
+}
